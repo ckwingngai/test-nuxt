@@ -1,15 +1,7 @@
 import Vue from 'vue'
+import _get from 'lodash/get'
 
 export default {
-  //   state: () => ({
-  //     counter: 0
-  //   }),
-  //   mutations: {
-  //     increment(state) {
-  //       state.counter++
-  //     }
-  //   }
-  // }
   state: {},
   actions: {
     addAccount: ({ commit }, data) => {
@@ -22,8 +14,8 @@ export default {
     }
   },
   mutations: {
-    setAccount: (state, { key, value }) => {
-      Vue.set(state, key, value)
+    setAccount: (state, data) => {
+      Vue.set(state, 'list', [..._get(state, 'list', []), data])
     }
   }
 }

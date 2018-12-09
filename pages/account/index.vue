@@ -20,14 +20,22 @@
             <button @click="onAdd()">TEST</button>
           </div>
         </el-col>
-        <el-col :span="8"><div class="grid-content right">3</div></el-col>
+        <el-col :span="8">
+          <div class="grid-content right">
+            <div 
+              v-for="(account, key) in getAccounts" 
+              :key="key">
+              {{ account }}
+            </div>
+          </div>
+        </el-col>
       </el-row>
     </div>
   </section>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -36,15 +44,18 @@ export default {
       initBal: 0
     }
   },
+  computed: {
+    ...mapGetters({
+      getAccounts: 'getAccounts'
+    })
+  },
   methods: {
     onAdd() {
       console.log('on add')
-      // this.$store.commit('increment')
-      this.addAccount({ key: this.accountName, value: this.initBal })
+      this.addAccount({ accountName: this.accountName, initBal: this.initBal })
     },
     ...mapActions({
       addAccount: 'addAccount'
-      // increment: 'increment'
     })
   }
 }
